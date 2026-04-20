@@ -97,7 +97,7 @@ export default function DashboardView({
         <button
           onClick={onLogout}
           disabled={isDisabled}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-text-dim hover:text-accent-red hover:bg-accent-red/10 border border-border-dim hover:border-accent-red/20 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-text-dim hover:text-accent-red hover:bg-accent-red/10 border border-border-dim hover:border-accent-red/20 transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
           id="logout-button"
         >
           <LogOut className="w-3 h-3" />

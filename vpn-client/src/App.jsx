@@ -153,7 +153,7 @@ export default function App() {
   return (
     <div className="h-screen w-screen flex flex-col overflow-hidden bg-bg-primary schematic-grid">
       {/* ── Top Status Bar ── */}
-      <StatusBar vpnState={vpnState} isAuthenticated={isAuthenticated} />
+      {/* <StatusBar vpnState={vpnState} isAuthenticated={isAuthenticated} /> */}
 
       {/* ── Main Content Area ── */}
       <div className="flex flex-1 min-h-0">
