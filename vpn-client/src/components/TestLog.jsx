@@ -41,7 +41,7 @@ export default function TestLog({ logs, clearLogs }) {
         </div>
         <button
           onClick={clearLogs}
-          className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono text-text-dim hover:text-accent-red hover:bg-accent-red/10 transition-all"
+          className="flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono text-text-dim hover:text-accent-red hover:bg-accent-red/10 transition-all cursor-pointer"
           id="clear-logs-button"
         >
           <Trash2 className="w-3 h-3" />

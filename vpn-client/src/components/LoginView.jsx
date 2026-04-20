@@ -100,7 +100,7 @@ export default function LoginView({
             type="submit"
             id="login-button"
             disabled={!email || !password || isDisabled}
-            className="w-full h-11 rounded-lg font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-all bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20 hover:bg-accent-cyan/20 hover:border-accent-cyan/40 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-accent-cyan/10"
+            className="w-full h-11 rounded-lg font-semibold text-sm tracking-wide flex items-center justify-center gap-2 transition-all bg-accent-cyan/10 text-accent-cyan border border-accent-cyan/20 hover:bg-accent-cyan/20 hover:border-accent-cyan/40 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-accent-cyan/10 cursor-pointer"
           >
             {isAuthenticating ? (
               <>

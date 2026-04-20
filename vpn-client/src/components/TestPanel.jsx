@@ -413,7 +413,7 @@ export default function TestPanel({
             addLog('SYS', 'System reset to initial state')
           }}
           disabled={isTestRunning}
-          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-mono text-text-dim hover:text-text-secondary bg-bg-primary border border-border-dim hover:border-border-default transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-mono text-text-dim hover:text-text-secondary bg-bg-primary border border-border-dim hover:border-border-default transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
           id="reset-button"
         >
           <RotateCcw className="w-3 h-3" />
@@ -468,7 +468,7 @@ export default function TestPanel({
                 <button
                   onClick={() => isRunnable && testRunners[tc.id]()}
                   disabled={!isRunnable}
-                  className={`w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all ${
+                  className={`w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer ${
                     isActive
                       ? `${c.btnActiveBg} ${c.btnActiveText} border ${c.btnActiveBorder}`
                       : `bg-bg-primary text-text-secondary border border-border-dim ${c.hoverBorder} ${c.hoverText} ${c.hoverBg}`
@@ -494,11 +494,11 @@ export default function TestPanel({
       </div>
 
       {/* Footer */}
-      <div className="px-4 py-2 border-t border-border-dim">
+      {/* <div className="px-4 py-2 border-t border-border-dim">
         <p className="text-[9px] font-mono text-text-dim text-center">
           Tests simulate state changes per SRS §3 & §6.4
         </p>
-      </div>
+      </div> */}
     </aside>
   )
 }
