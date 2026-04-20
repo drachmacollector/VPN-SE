@@ -19,6 +19,15 @@ const VALID_CREDENTIALS = {
   password: 'securepass123',
 }
 
+const SERVER_LOCATIONS = [
+  { id: 'us-east', name: 'US-East (Virginia)', latency: 24, load: 45, region: 'NA' },
+  { id: 'us-west', name: 'US-West (Oregon)', latency: 68, load: 32, region: 'NA' },
+  { id: 'eu-west', name: 'EU-West (Ireland)', latency: 110, load: 78, region: 'EU' },
+  { id: 'eu-central', name: 'EU-Central (Frankfurt)', latency: 125, load: 61, region: 'EU' },
+  { id: 'ap-south', name: 'Asia Pacific (Mumbai)', latency: 240, load: 15, region: 'AS' },
+  { id: 'sa-east', name: 'South America (São Paulo)', latency: 185, load: 22, region: 'SA' },
+]
+
 export default function App() {
   // ─── Core State Machine ───
   const [vpnState, setVpnState] = useState('disconnected') // disconnected | authenticating | connecting | connected | error
@@ -28,6 +37,9 @@ export default function App() {
   // ─── Form State ───
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  // ─── Server Location ───
+  const [selectedServer, setSelectedServer] = useState(SERVER_LOCATIONS[0])
 
   // ─── Network Simulation ───
   const [bytesUp, setBytesUp] = useState(0)
@@ -54,11 +66,14 @@ export default function App() {
   // ─── Data Flow Simulation ───
   const startDataFlow = useCallback(() => {
     if (dataIntervalRef.current) clearInterval(dataIntervalRef.current)
+    // Speed multiplier based on server load (simulated)
+    const multiplier = 1 + (100 - selectedServer.load) / 100 
+    
     dataIntervalRef.current = setInterval(() => {
-      setBytesUp(prev => prev + Math.floor(Math.random() * 2048) + 256)
-      setBytesDown(prev => prev + Math.floor(Math.random() * 4096) + 512)
+      setBytesUp(prev => prev + Math.floor((Math.random() * 2048 + 256) * multiplier))
+      setBytesDown(prev => prev + Math.floor((Math.random() * 4096 + 512) * multiplier))
     }, 300)
-  }, [])
+  }, [selectedServer])
 
   const stopDataFlow = useCallback(() => {
     if (dataIntervalRef.current) {
@@ -183,6 +198,9 @@ export default function App() {
               maskedIp={maskedIp}
               errorMessage={errorMessage}
               isTestRunning={isTestRunning}
+              selectedServer={selectedServer}
+              setSelectedServer={setSelectedServer}
+              servers={SERVER_LOCATIONS}
             />
           )}
         </main>
