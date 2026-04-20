@@ -1,0 +1,360 @@
+Virtual Private Network (VPN)
+Table of Contents
+1. Introduction
+   1.1 Purpose
+   1.2 Scope
+   1.3 Definitions, Acronyms, and Abbreviations
+   1.4 References
+   1.5 Overview
+2. Overall Description
+   2.1 Product Perspective
+   2.2 Product Functions
+   2.3 User Classes and Characteristics
+   2.4 Operating Environment
+   2.5 Design and Implementation Constraints
+   2.6 Assumptions and Dependencies
+3. System Features and Functional Requirements
+   3.1 Feature: User Authentication
+   3.2 Feature: Add Expense/Income
+   3.3 Feature: Expense List View
+   3.4 Feature: Summary Dashboard
+   3.5 Feature: Monthly Budgeting
+   3.6 Feature: Alerts and Notifications
+   3.7 Feature: AI-Powered Insights
+   3.8 Feature: Receipt Scanner
+4. External Interface Requirements
+   4.1 User Interfaces
+   4.2 Hardware Interfaces
+   4.3 Software Interfaces
+   4.4 Communication Interfaces
+5. Non-Functional Requirements
+   5.1 Performance Requirements
+   5.2 Security Requirements
+   5.3 Reliability Requirements
+   5.4 Usability Requirements
+   5.5 Scalability Requirements
+   5.6 Maintainability Requirements
+6. System Models
+   6.1 Use Case Diagrams
+   6.2 Data Flow Diagrams
+   6.3 State Diagrams
+
+
+
+
+
+1. Introduction
+1.1 Purpose
+This Software Requirements Specification (SRS) document describes the requirements, constraints, and overall behavior of a Virtual Private Network (VPN) System. The purpose of this document is to provide a clear and structured specification of the system's functionality and quality attributes without focusing on implementation details.
+This document is intended for:
+? Students and developers involved in analyzing and designing the system
+? Evaluators assessing the completeness and clarity of requirements
+? Stakeholders who wish to understand the scope and capabilities of the proposed system
+The SRS serves as a reference throughout the system design and modeling phases and forms the basis for system architecture, use case diagrams, and state-based models.
+
+1.2 Scope
+A Virtual Private Network (VPN) is a software-based solution that enables secure communication over untrusted networks such as the public internet. VPNs are commonly used to protect user data, ensure confidentiality during transmission, and allow secure access to remote networks by establishing an encrypted communication tunnel between a client device and a VPN server.
+The scope of this project is to specify and analyze a client-server VPN system that provides secure data transmission, user authentication, and session management. The system focuses on protecting data in transit and maintaining communication integrity while operating over public networks.
+This project is limited to the software engineering aspects of a VPN system, including requirement analysis, functional and non-functional specifications, design constraints, and system behavior modeling. The document does not cover low-level protocol implementation, kernel-level networking, or custom cryptographic algorithm design.
+The primary objectives of the system are:
+? To establish a secure and encrypted communication tunnel between the user and the VPN server
+? To ensure confidentiality and integrity of data transmitted over public networks
+? To manage user sessions reliably and securely
+
+1.3 Definitions, Acronyms, and Abbreviations
+TermDescriptionVPNVirtual Private NetworkSRSSoftware Requirements SpecificationClientUser-side application that initiates the VPN connectionServerRemote system that manages VPN connections and routes trafficTunnelEncrypted logical communication channelAuthenticationProcess of verifying user identityEncryptionTechnique used to protect data from unauthorized accessISPInternet Service Provider
+1.4 References
+? IEEE Std 830 / IEEE 29148 - Software Requirements Specification Guidelines
+? Software Engineering: A Practitioner's Approach - Roger S. Pressman
+? Computer Networking: A Top-Down Approach - Kurose & Ross
+
+1.5 Overview
+The remainder of this document is organized as follows:
+Section 2 provides a brief overall description of the VPN system, including its operating environment and constraints. Section 3 details the system features and functional requirements. Section 4 describes the external interface requirements. Section 5 outlines the non-functional requirements such as security, performance, and reliability. Section 6 presents system models including use case, data flow, and state diagrams. Section 7 provides a preliminary schedule and cost estimation for the project.
+
+2. Overall Description
+2.1 Product Perspective
+The proposed system is a standalone Virtual Private Network (VPN) software system based on a client-server architecture. The VPN client runs on the user's device and establishes a secure connection with a remote VPN server over a public network such as the internet.
+The system operates independently and does not extend or modify any existing software product. It interacts with the underlying operating system's networking stack to route user traffic through an encrypted tunnel managed by the VPN server.
+2.2 Product Functions
+At a high level, the VPN system provides the following core functions:
+? Authentication of users before establishing a VPN connection
+
+? Establishment of a secure and encrypted communication tunnel
+
+? Secure transmission of user data through the VPN server
+
+? Management of VPN sessions, including connection, maintenance, and termination
+
+? Handling of connection failures and safe disconnection
+2.3 User Classes and Characteristics
+The system supports the following user classes:
+? End User: A general user who initiates and terminates VPN connections to secure their network communication. End users are assumed to have basic computer or mobile device usage knowledge.
+
+? System Administrator: Responsible for managing the VPN server and monitoring system operation. This role is limited in scope and not exposed to end users.
+
+2.4 Operating Environment
+The VPN system operates in the following environment:
+? Client Side: Desktop or mobile devices running a modern operating system with network connectivity
+
+? Server Side: A remote VPN server deployed on cloud or dedicated infrastructure
+
+? Network: Public and untrusted networks such as the internet
+
+The system requires an active internet connection to establish and maintain VPN sessions.
+
+2.5 Design and Implementation Constraints
+The system is subject to the following constraints:
+? Use of standard and widely accepted cryptographic techniques
+
+? Compatibility with common operating systems and network environments
+
+? Performance limitations due to encryption overhead and network latency
+
+? Compliance with applicable legal and ethical guidelines related to network usage
+
+2.6 Assumptions and Dependencies
+The following assumptions and dependencies apply to the system:
+? Users operate on trusted client devices
+
+? Internet connectivity is available during VPN usage
+
+? The system relies on existing cryptographic libraries and networking services
+
+? The VPN server infrastructure is available and operational.
+3. Functional Requirements
+Each feature represents a major capability of the system. Functional requirements define what the system shall do, without specifying implementation details.
+3.1 Feature: User Authentication
+Description:
+ The system shall authenticate users before allowing access to VPN services to ensure only authorized users can connect.
+Priority: High
+3.1.1 Functional Requirements
+IDRequirementFR-1.1The system shall authenticate users before establishing a VPN connection.FR-1.2The system shall grant access only when valid credentials are provided.FR-1.3The system shall reject connection attempts with invalid credentials.FR-1.4The system shall establish a session only after successful authentication.3.2 Feature: Secure Tunnel Establishment
+Description:
+ The system shall establish a secure and encrypted communication tunnel between the client and the VPN server after successful authentication.
+Priority: High
+
+
+3.2.1 Functional Requirements
+IDRequirementFR-2.1The system shall initiate tunnel establishment after successful user authentication.FR-2.2The system shall create a logical encrypted tunnel between the client and the VPN server.FR-2.3The system shall allow data transmission only after successful tunnel establishment3.3 Feature: Encrypted Data Transmission
+Description:
+ The system shall securely transmit user data through the established VPN tunnel while maintaining confidentiality and integrity.
+Priority: High
+3.3.1 Functional Requirements
+IDRequirementFR-3.1The system shall encrypt user data before transmission through the VPN tunnel.FR-3.2The system shall transmit encrypted data via the VPN server to the destination network.FR-3.3The system shall decrypt incoming data before delivering it to the client application.FR-3.4The system shall ensure data integrity during transmission.3.4 Feature: Session Management
+Description:
+ The system shall manage VPN sessions throughout their lifecycle, including connection maintenance and termination.
+Priority: High
+3.4.1 Functional Requirements
+IDRequirementFR-4.1The system shall maintain an active VPN session while the user is connected.FR-4.2The system shall allow users to manually terminate the VPN session.FR-4.3The system shall automatically terminate the session upon prolonged inactivity or connection loss.
+3.5 Feature: Error Handling and Recovery
+Description:
+ The system shall allow data transmission only after successful tunnel establishment
+Priority: Medium
+3.5.1 Functional Requirements
+IDRequirementFR-5.1The system shall detect failures during authentication or tunnel establishment.FR-5.2The system shall notify the user when a failure occurs.FR-5.3The system shall safely terminate the VPN session in case of unrecoverable errors.FR-5.4The system shall prevent unencrypted data transmission during failure states.
+4. External Interface Requirements
+This section describes how the VPN system interacts with users, hardware components, software systems, and communication networks. These interfaces define points of interaction, not internal implementation details.
+
+4.1 User Interfaces
+The VPN system shall provide a simple and intuitive user interface that allows users to control VPN connectivity.
+? The system shall provide an interface to initiate and terminate an active VPN connection.
+
+? The system shall display the current connection status (e.g., disconnected, connecting, connected, error).
+
+? The system shall provide basic feedback messages for successful connections and error conditions.
+
+The user interface may be graphical or command-line based and is intended to be minimal, focusing on core VPN functionality.
+
+4.2 Hardware Interfaces
+The VPN system interacts with standard hardware components available on client devices.
+? The system shall use the network interface adapter for data transmission.
+
+? No specialized hardware is required for system operation.
+Hardware interaction is handled indirectly through the operating system.
+
+4.3 Software Interfaces
+The VPN system interacts with the following software components:
+? Operating System Networking Stack
+
+? Used for routing and forwarding network traffic through the VPN tunnel
+
+? VPN Server Software
+
+? Handles authentication, tunnel management, and traffic routing
+The system relies on existing operating system services and standard networking interfaces for operation.
+
+4.4 Communication Interfaces
+The VPN system communicates over public and untrusted networks.
+? The system shall use secure communication channels between the client and VPN server.
+
+? All data exchanged between the client and server shall be transmitted through an encrypted tunnel.
+
+? The system shall operate over standard internet connectivity without requiring specialized network configuration.
+
+
+5. Non-Functional Requirements
+This section specifies the quality attributes of the VPN system. Non-functional requirements define how well the system performs its functions and ensure reliability, security, and usability of the system.
+
+5.1 Performance Requirements
+The VPN system shall meet the following performance requirements:
+IDRequirementNFR-1.1The system shall establish a VPN connection within an acceptable time under normal network conditions.NFR-1.2The system shall introduce minimal additional latency to user network traffic.NFR-1.3The system shall maintain stable performance during an active VPN session.NFR-1.4The system shall efficiently manage system resources such as CPU and memory on the client device.
+5.2 Security Requirements
+Security is a critical requirement for the VPN system, as it operates over untrusted networks.
+IDRequirementNFR-2.1The system shall ensure confidentiality of data transmitted through the VPN tunnel.NFR-2.2The system shall ensure integrity of data exchanged between the client and the VPN server.NFR-2.3The system shall authenticate users before allowing access to VPN services.NFR-2.4The system shall prevent transmission of unencrypted data outside the VPN tunnel during an active session.NFR-2.5The system shall terminate connections securely in case of authentication or tunnel failure.
+5.3 Reliability Requirements
+The system shall operate reliably under normal and adverse network conditions.
+IDRequirementNFR-3.1The system shall maintain a stable connection during normal network operation.NFR-3.2The system shall detect connection failures and handle them gracefully.NFR-3.3The system shall avoid data leakage during unexpected disconnections.NFR-3.4The system shall allow safe reconnection after a temporary failure.
+5.4 Usability Requirements
+The VPN system shall be easy to use for users with basic technical knowledge.
+IDRequirementNFR-4.1The system shall provide a simple mechanism to connect and disconnect the VPN.NFR-4.2The system shall clearly indicate the current connection status to the user.NFR-4.3The system shall provide understandable error messages for connection failures.
+5.5 Scalability Requirements
+The VPN system shall support growth in the number of users and connections.
+IDRequirementNFR-5.1The system shall support multiple concurrent VPN connections.NFR-5.2The system architecture shall allow scaling of VPN server resources as demand increases.
+5.6 Maintainability Requirements
+The system shall be designed to allow future enhancements and maintenance.
+IDRequirementNFR-6.1The system shall follow a modular design to simplify maintenance.NFR-6.2The system shall allow updates without disrupting active users whenever possible.
+
+
+
+
+
+7. Process Model
+The development of the proposed VPN system will follow the Agile Process Model. Agile is an iterative and incremental software development approach where the system is developed in small functional modules and improved through continuous feedback.
+
+In this project, the development will proceed through short iterations involving requirement analysis, system design, implementation, and testing. Each iteration will focus on a specific component of the VPN system such as user authentication, secure connection establishment, and encrypted data transmission.
+The Agile model is suitable for this project because it allows gradual refinement of system features and supports incremental development of different modules of the VPN system. This approach also makes it easier to incorporate feedback during the development stages and improves system reliability through continuous testing and evaluation.
+The typical phases followed in the Agile process include requirement gathering, design, construction/iteration, testing, deployment, and feedback
+
+6. System Models
+This section presents conceptual models of the VPN system to visually and logically represent system behavior, user interactions, and state transitions. These models help in understanding how different components of the system interact and how the system behaves under various conditions. The diagrams associated with this section will be presented separately during the system design phase.
+
+6.1 Use Case Model
+The use case model represents the functional behavior of the VPN system from the user's perspective. It identifies the primary actors interacting with the system and the services provided by the system to those actors.
+Actors
+? End User
+ The primary actor who uses the VPN client to establish and terminate secure connections.
+
+? VPN Server
+ A supporting system entity that authenticates users, establishes secure tunnels, and routes traffic.
+
+Major Use Cases
+? Authenticate User
+
+? Establish VPN Connection
+
+? Transmit Data Securely
+
+? Monitor Connection Status
+
+? Terminate VPN Connection
+
+? Handle Connection Failure
+
+The End User initiates most use cases, while the VPN Server supports authentication, tunnel establishment, and traffic routing.
+
+6.2 System Flow Model (Process Flow / Flowchart)
+The system flow model illustrates the step-by-step operational flow of the VPN system during a typical user session.
+A typical VPN session follows this sequence:
+1. The user launches the VPN client application.
+
+2. The user initiates a connection request.
+
+3. The system performs user authentication.
+
+4. Upon successful authentication, the system establishes a secure VPN tunnel.
+
+5. User network traffic is routed through the encrypted tunnel.
+
+6. The system continuously monitors the connection status.
+
+7. The user terminates the connection or the system disconnects due to an error.
+
+8. The VPN session ends and resources are released.
+
+This flow helps visualize decision points such as authentication success or failure and tunnel establishment outcomes.
+
+6.3 Data Flow Model
+The data flow model describes how data moves through the VPN system and between its components.
+Context-Level Data Flow
+? The User provides authentication credentials and connection requests to the VPN Client.
+
+? The VPN Client communicates securely with the VPN Server to authenticate the user and establish a tunnel.
+
+? Encrypted user data flows through the VPN Server to the external network.
+
+? Responses from the external network are routed back to the user through the same encrypted tunnel.
+
+Major Data Elements
+? Authentication credentials
+
+? Encrypted user data packets
+
+? Connection status information
+
+This model emphasizes that user data remains encrypted while traversing untrusted networks.
+
+
+
+6.4 State Diagram
+The state diagram represents the different states of the VPN system during its lifecycle and the transitions between those states.
+VPN Client States
+? Disconnected - Initial state when the VPN client is not connected
+
+? Authenticating - The system is verifying user credentials
+
+? Connecting - Secure tunnel establishment is in progress
+
+? Connected - VPN tunnel is active and data is being transmitted
+
+? Error - An error has occurred during authentication or transmission
+
+? Terminated - The VPN session has ended and resources are released
+
+State Transitions
+? Disconnected ? Authenticating (User initiates connection)
+
+? Authenticating ? Connecting (Authentication successful)
+
+? Authenticating ? Error (Authentication failure)
+
+? Connecting ? Connected (Tunnel established successfully)
+
+? Connected ? Terminated (User disconnects)
+
+? Connected ? Error (Network or system failure)
+
+? Error ? Disconnected (Recovery or retry)
+
+
+7. Cost and Schedule Estimation
+This section provides a high-level estimate of effort, cost, and development schedule for the VPN system based on the defined project scope.
+
+7.1 Estimation Assumptions
+? The project is developed by two student developers.
+
+? The development duration is approximately 6 weeks.
+
+? Open-source tools and frameworks are used.
+
+? A free or low-cost cloud server is utilized.
+
+
+7.2 Effort Estimation
+The total estimated development effort is approximately 160-200 person-hours, shared between two developers.
+
+7.3 Cost Estimation
+As this is an academic project, only minimal infrastructure costs are considered.
+? Estimated total cost: ?2,000 - ?3,000
+
+? No development or licensing costs are included.
+
+
+7.4 Schedule Estimation
+PhaseDurationRequirements AnalysisWeek 1System DesignWeek 2Development (Client & Server)Week 3-5Testing & DocumentationWeek 6
+
+8. Conclusion
+Virtual Private Networks play a crucial role in securing communication over public and untrusted networks. By establishing an encrypted tunnel between a user and a remote server, a VPN system helps protect data confidentiality, maintain communication integrity, and reduce exposure to network-based threats.
+The proposed VPN system focuses on core functionalities such as user authentication, secure tunnel establishment, encrypted data transmission, and reliable session management. Through a client-server architecture and clearly defined system states, the system ensures controlled and secure handling of user traffic during active connections.
+Overall, this VPN system demonstrates how software engineering principles can be applied to design a security-critical network application in a structured and systematic manner, balancing functionality, reliability, and usability.
+
