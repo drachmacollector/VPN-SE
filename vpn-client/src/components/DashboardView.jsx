@@ -57,6 +57,8 @@ export default function DashboardView({
   selectedServer,
   setSelectedServer,
   servers,
+  userRole,
+  onSwitchView,
 }) {
   const [sessionTime, setSessionTime] = useState(0)
   const [showGraph, setShowGraph] = useState(false)
@@ -208,6 +210,18 @@ export default function DashboardView({
             >
               <Activity className="w-4 h-4" />
             </button>
+            
+            {userRole === 'admin' && (
+              <button
+                onClick={() => onSwitchView('admin')}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono text-accent-cyan bg-accent-cyan/10 border border-accent-cyan/20 hover:bg-accent-cyan/20 transition-all"
+                title="Open Admin Console"
+              >
+                <Shield className="w-3.5 h-3.5" />
+                <span>Admin</span>
+              </button>
+            )}
+
             <button
               onClick={onLogout}
               disabled={isDisabled}

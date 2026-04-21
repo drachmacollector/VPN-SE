@@ -11,18 +11,24 @@ export default function LoginView({
   password,
   setPassword,
   onLogin,
+  onRegister,
   vpnState,
   errorMessage,
   isTestRunning,
 }) {
   const [showPassword, setShowPassword] = useState(false)
+  const [mode, setMode] = useState('login') // login | register
   const isAuthenticating = vpnState === 'authenticating'
   const isDisabled = isTestRunning || isAuthenticating
 
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!email || !password || isDisabled) return
-    onLogin(email, password)
+    if (mode === 'login') {
+      onLogin(email, password)
+    } else {
+      onRegister(email, password)
+    }
   }
 
   return (
@@ -35,7 +41,9 @@ export default function LoginView({
         <h1 className="text-2xl font-bold text-text-primary tracking-tight">
           Secure<span className="text-accent-cyan">Net</span> VPN
         </h1>
-        <p className="text-sm text-text-dim mt-1 font-mono">Authenticate to access secure tunnel</p>
+        <p className="text-sm text-text-dim mt-1 font-mono">
+          {mode === 'login' ? 'Authenticate to access secure tunnel' : 'Create a new account to join SecureNet'}
+        </p>
       </div>
 
       {/* Login Card */}
@@ -110,7 +118,7 @@ export default function LoginView({
             ) : (
               <>
                 <Fingerprint className="w-4 h-4" />
-                <span>Authenticate</span>
+                <span>{mode === 'login' ? 'Authenticate' : 'Create Account'}</span>
               </>
             )}
           </button>
@@ -128,6 +136,17 @@ export default function LoginView({
           <p className="text-[11px] font-mono text-text-dim">
             AES-256 encrypted • TLS 1.3 handshake
           </p>
+          <button
+            type="button"
+            onClick={() => {
+              setMode(mode === 'login' ? 'register' : 'login')
+              // Error message could be cleared here if needed
+            }}
+            disabled={isDisabled}
+            className="mt-4 text-[11px] font-mono text-accent-cyan hover:underline uppercase tracking-widest font-bold disabled:opacity-40"
+          >
+            {mode === 'login' ? "Don't have an account? Create one" : "Already have an account? Login"}
+          </button>
         </div>
       </div>
     </div>

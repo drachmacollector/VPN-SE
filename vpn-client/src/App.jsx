@@ -1,6 +1,7 @@
 import { useState, useCallback, useRef } from 'react'
 import LoginView from './components/LoginView'
 import DashboardView from './components/DashboardView'
+import AdminView from './components/AdminView'
 import TestPanel from './components/TestPanel'
 import TestLog from './components/TestLog'
 import StatusBar from './components/StatusBar'
@@ -33,6 +34,11 @@ export default function App() {
   const [vpnState, setVpnState] = useState('disconnected') // disconnected | authenticating | connecting | connected | error
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
+  const [userRole, setUserRole] = useState('user') // user | admin
+  const [currentView, setCurrentView] = useState('dashboard') // dashboard | admin
+  const [userList, setUserList] = useState([
+    { email: 'admin@vpn.com', password: 'securepass123', role: 'admin', joined: '2026-04-20', status: 'offline' }
+  ])
 
   // ─── Form State ───
   const [email, setEmail] = useState('')
@@ -88,30 +94,78 @@ export default function App() {
     setBytesDown(0)
   }, [stopDataFlow])
 
-  // ─── Authentication Logic (FR-1.1 through FR-1.4) ───
+  // ─── Authentication Logic ───
   const handleLogin = useCallback((emailVal, passwordVal) => {
     return new Promise((resolve) => {
       setVpnState('authenticating')
       setErrorMessage('')
 
       setTimeout(() => {
-        if (emailVal === VALID_CREDENTIALS.email && passwordVal === VALID_CREDENTIALS.password) {
-          // FR-1.2: Grant access with valid credentials
-          // FR-1.4: Establish session after successful auth
+        // Find user in userList
+        const user = userList.find(u => u.email === emailVal && u.password === passwordVal)
+
+        if (user) {
           setIsAuthenticated(true)
+          setUserRole(user.role)
           setVpnState('disconnected')
+          setCurrentView('dashboard')
+          
+          // Update status for user in list
+          setUserList(prev => prev.map(u => u.email === emailVal ? { ...u, status: 'offline' } : u))
+
           setEmail('')
           setPassword('')
           resolve(true)
         } else {
-          // FR-1.3: Reject invalid credentials
           setVpnState('disconnected')
           setErrorMessage('Invalid credentials provided')
           resolve(false)
         }
       }, 1200)
     })
-  }, [])
+  }, [userList])
+
+  const handleRegister = useCallback((emailVal, passwordVal) => {
+    return new Promise((resolve) => {
+      setVpnState('authenticating')
+      setErrorMessage('')
+
+      setTimeout(() => {
+        const existingUser = userList.find(u => u.email === emailVal)
+        
+        if (existingUser) {
+          setVpnState('disconnected')
+          setErrorMessage('An account with this email already exists')
+          resolve(false)
+          return
+        }
+
+        if (emailVal.includes('@') && passwordVal.length >= 6) {
+          const newUser = {
+            email: emailVal,
+            password: passwordVal,
+            role: 'user',
+            joined: new Date().toISOString().split('T')[0],
+            status: 'offline'
+          }
+          
+          setUserList(prev => [...prev, newUser])
+          setIsAuthenticated(true)
+          setUserRole('user')
+          setVpnState('disconnected')
+          setCurrentView('dashboard')
+          
+          setEmail('')
+          setPassword('')
+          resolve(true)
+        } else {
+          setVpnState('disconnected')
+          setErrorMessage('Email must be valid and password at least 6 characters')
+          resolve(false)
+        }
+      }, 1200)
+    })
+  }, [userList])
 
   // ─── Connection Logic (FR-2.1, FR-2.2) ───
   const handleConnect = useCallback(() => {
@@ -173,7 +227,7 @@ export default function App() {
       {/* ── Main Content Area ── */}
       <div className="flex flex-1 min-h-0">
         {/* ── VPN Client Interface (Center/Left) ── */}
-        <main className="flex-1 flex items-center justify-center p-6 min-w-0">
+        <main className="flex-1 flex items-center justify-center p-6 min-w-0 overflow-y-auto">
           {!isAuthenticated ? (
             <LoginView
               email={email}
@@ -181,11 +235,12 @@ export default function App() {
               password={password}
               setPassword={setPassword}
               onLogin={handleLogin}
+              onRegister={handleRegister}
               vpnState={vpnState}
               errorMessage={errorMessage}
               isTestRunning={isTestRunning}
             />
-          ) : (
+          ) : currentView === 'dashboard' ? (
             <DashboardView
               vpnState={vpnState}
               onConnect={handleConnect}
@@ -201,6 +256,16 @@ export default function App() {
               selectedServer={selectedServer}
               setSelectedServer={setSelectedServer}
               servers={SERVER_LOCATIONS}
+              userRole={userRole}
+              onSwitchView={setCurrentView}
+            />
+          ) : (
+            <AdminView 
+              onSwitchView={setCurrentView}
+              userList={userList}
+              setUserList={setUserList}
+              servers={SERVER_LOCATIONS}
+              onLogout={handleLogout}
             />
           )}
         </main>
